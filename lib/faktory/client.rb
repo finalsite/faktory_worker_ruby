@@ -245,7 +245,7 @@ module Faktory
 
       payload = {
         "wid": @@random_process_wid,
-        "hostname": Socket.gethostname,
+        "hostname": hostname,
         "pid": $$,
         "labels": Faktory.options[:labels] || ["ruby-#{RUBY_VERSION}"],
         "v": 2,
@@ -276,6 +276,10 @@ module Faktory
 
       command("HELLO", Faktory.dump_json(payload))
       ok
+    end
+
+    def hostname
+    	@@hostname ||= Socket.gethostname
     end
 
     def command(*args)
